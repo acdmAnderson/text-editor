@@ -1,5 +1,5 @@
 import TextEditor from "./TextEditor";
-import BoldMark from "./BoldMark";
+import Render from "./Render"
 
 
-export { TextEditor, BoldMark };
+export { TextEditor, Render};
