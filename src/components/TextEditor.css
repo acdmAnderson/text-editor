@@ -1,0 +1,16 @@
+.editable{
+    width: 50%;
+    height: 300px;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 2%;
+    border: solid 0.1em #dedede;
+}
+
+.display-ilg{
+    display: inline-grid;
+}
+
+.txt-color{
+    margin-top: 5px;
+}

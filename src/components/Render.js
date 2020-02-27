@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Render = {
   CodeElement: props => {
     return (
@@ -18,15 +19,13 @@ const Render = {
         style={{
           fontWeight: props.leaf.bold ? "bold" : "normal",
           fontStyle: props.leaf.italic ? "italic" : "normal",
-          color: props.leaf.color 
-            ? "#00ff44"//`'#'${Math.random().toString(16).slice(2, 8).toUpperCase()}`
-            : "#000"
+          color: props.leaf.color
         }}
       >
         {props.children}
       </span>
     );
-  }
+  },
 };
 
-export default  Render;
+export default Render;

@@ -25,14 +25,6 @@ const CustomEditor = {
       return !!match;
     },
 
-    isColorActive(editor) {
-      const [match] = Editor.nodes(editor, {
-        match: n => n.color === true,
-        universal: true
-      });
-      return !!match;
-    },
-
     toggleBoldMark(editor) {
       const isActive = CustomEditor.isBoldMarkActive(editor);
       Transforms.setNodes(
@@ -61,11 +53,10 @@ const CustomEditor = {
       );
     },
 
-    toggleColor(editor) {
-      const isActive = CustomEditor.isColorActive(editor);
+    toggleColor(editor, {hex}) {
       Transforms.setNodes(
         editor,
-        { color: isActive ? null : true },
+        { color: hex },
         { match: n => Text.isText(n), split: true }
       );
     }
