@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback} from "react";
+import React, { useMemo, useState, useCallback } from "react";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
 
@@ -9,7 +9,7 @@ import CustomEditor from "./util/editor.util";
 
 import Render from "./Render";
 
-import "./TextEditor.css"
+import "./TextEditor.css";
 
 import { CompactPicker } from "react-color";
 
@@ -22,11 +22,32 @@ function TextEditor() {
     {
       type: "paragraph",
       children: [{ text: "A line of text in a paragraph." }],
-      color: "#000",
+      color: "#000"
     }
   ]);
 
   const [isRenderColor, setRenderColor] = useState(false);
+
+  const fontSizeValues = [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    32,
+    48,
+    54,
+    72
+  ];
+
+  const [fontSize, setFontSize] = useState(16);
 
   const onKeyDown = e => {
     if (!e.ctrlKey) {
@@ -71,6 +92,12 @@ function TextEditor() {
     setRenderColor(!isRenderColor);
   };
 
+  const changeFontSizeEvent = (e) => {
+    e.preventDefault();
+    CustomEditor.toggleFontSize(editor, e.target.value);
+    setFontSize(e.target.value);
+  };
+
   const renderElement = useCallback(props => {
     switch (props.element.type) {
       case "code":
@@ -84,8 +111,12 @@ function TextEditor() {
     return <Leaf {...props} />;
   }, []);
 
-  function showColorButton(){
-    if(!isRenderColor) setRenderColor(true);
+  const renderFontSizeValues = value => {
+    return <option key={value} value={value}>{value}</option>;
+  };
+
+  function showColorButton() {
+    if (!isRenderColor) setRenderColor(true);
   }
   return (
     <Slate
@@ -96,17 +127,46 @@ function TextEditor() {
       }}
     >
       <div className="btn-group">
-        <button className="btn btn-primary shadow-btn" onMouseDown={mouseCodeBlockEvent}>Code Block</button>
-        <button className="btn btn-primary shadow-btn" onMouseDown={mouseBoldEvent}>Bold</button>
-        <button className="btn btn-primary shadow-btn" onMouseDown={mouseItalicEvent}>Italic</button>
-        <button className="btn btn-primary shadow-btn display-ilg" onMouseDown={showColorButton}>
-          <span >color</span>
+        <button
+          className="btn btn-primary shadow-btn"
+          onMouseDown={mouseCodeBlockEvent}
+        >
+          Code Block
+        </button>
+        <button
+          className="btn btn-primary shadow-btn"
+          onMouseDown={mouseBoldEvent}
+        >
+          Bold
+        </button>
+        <button
+          className="btn btn-primary shadow-btn"
+          onMouseDown={mouseItalicEvent}
+        >
+          Italic
+        </button>
+        <button
+          className="btn btn-primary shadow-btn display-ilg"
+          onMouseDown={showColorButton}
+        >
+          <span>color</span>
           {isRenderColor ? (
-            <CompactPicker className="txt-color" color={value.color} onChange={mouseColorEvent} />
+            <CompactPicker
+              className="txt-color"
+              color={value.color}
+              onChange={mouseColorEvent}
+            />
           ) : (
             <></>
           )}
         </button>
+        <select
+          defaultValue={fontSize}
+          className="btn btn-primary shadow-btn"
+          onChange={e => changeFontSizeEvent(e)}
+        >
+          {fontSizeValues.map(renderFontSizeValues)}
+        </select>
       </div>
       <Editable
         className="editable shadow"

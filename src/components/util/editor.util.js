@@ -59,7 +59,17 @@ const CustomEditor = {
         { color: hex },
         { match: n => Text.isText(n), split: true }
       );
+    },
+
+    toggleFontSize(editor, size) {
+      console.log(size);
+      Transforms.setNodes(
+        editor,
+        { fontSize: size },
+        { match: n => Text.isText(n), split: true }
+      );
     }
+
 
   };
 

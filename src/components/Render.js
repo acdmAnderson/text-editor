@@ -19,6 +19,7 @@ const Render = {
         style={{
           fontWeight: props.leaf.bold ? "bold" : "normal",
           fontStyle: props.leaf.italic ? "italic" : "normal",
+          fontSize: parseInt(props.leaf.fontSize || 16),
           color: props.leaf.color
         }}
       >
